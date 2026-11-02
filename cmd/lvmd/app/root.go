@@ -73,6 +73,10 @@ func subMain(parentCtx context.Context) error {
 		return err
 	}
 
+	if err := runPlatformStartupChecks(parentCtx, config.DeviceClasses); err != nil {
+		return err
+	}
+
 	if config.LVMCommandPrefix != nil {
 		if lvmPath != "" {
 			return fmt.Errorf("cannot set both --lvm-path and lvm-command-prefix")

@@ -1,3 +1,5 @@
+//go:build !aix
+
 package command
 
 import (
@@ -31,15 +33,6 @@ func AsLVMError(err error) (LVMError, bool) {
 	var lvmErr LVMError
 	ok := errors.As(err, &lvmErr)
 	return lvmErr, ok
-}
-
-// LVMError is an error that wraps the original error and the stderr output of the lvm command if found.
-// It also provides an exit code if present that can be used to determine the type of error from LVM.
-// Regular inaccessible errors will have an exit code of 5.
-type LVMError interface {
-	error
-	ExitCode() int
-	Unwrap() error
 }
 
 type lvmErr struct {
